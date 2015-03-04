@@ -1,5 +1,6 @@
 package com.hack.geojson.team.six.servlet;
 
+import com.google.gson.Gson;
 import com.hack.geojson.team.six.RegionBuilder;
 import com.hack.geojson.team.six.RestData;
 
@@ -7,8 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.HashSet;
 
 
@@ -19,20 +22,28 @@ public class ScriptServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
 
-        // hit the  to other pairs app
-        // process the response
+        Gson gson = new Gson();
+
+        String username = req.getParameter("username");
+        String jsonResponse;
+        if (username.contains("2")) {
+            jsonResponse = NetClientGet.getJsonResponse("http://localhost:8090/api/aggregate");
+
+        } else {
+            jsonResponse = "[{\"region\":\"Wales\",\"totalAmount\":420530.28,\"nbTransactions\":138},{\"region\":\"London\",\"totalAmount\":4170204.40,\"nbTransactions\":417},{\"region\":\"North West\",\"totalAmount\":3345868.44,\"nbTransactions\":365},{\"region\":\"Scotland\",\"totalAmount\":2417655.68,\"nbTransactions\":299},{\"region\":\"South West\",\"totalAmount\":1478510.16,\"nbTransactions\":253},{\"region\":\"South East\",\"totalAmount\":573851.36,\"nbTransactions\":141},{\"region\":\"Yorkshire And The Hamber\",\"totalAmount\":490358.89,\"nbTransactions\":134},{\"region\":\"North East\",\"totalAmount\":206924.45,\"nbTransactions\":81},{\"region\":\"West Midlands\",\"totalAmount\":879381.18,\"nbTransactions\":186},{\"region\":\"Northern Ireland\",\"totalAmount\":14403.72,\"nbTransactions\":25},{\"region\":\"East Midlands\",\"totalAmount\":134498.12,\"nbTransactions\":80}]";
+
+        }
 
 
+        BufferedReader br = new BufferedReader(new StringReader(jsonResponse));
 
-        // construct the script using region builder
-
+        //convert the json string back to object
+        RestData[] restData = gson.fromJson(br, RestData[].class);
         RegionBuilder regionBuilder = new RegionBuilder();
         regionBuilder.buildRegionGeoData(new HashSet<RestData>());
 
 
-        String username = req.getParameter("username");
-        if (username != null && username.length() > 0) {
-            out.println("<h2>Hello, " + username + "!</h2>");
-        }
+        out.println("<h2>Hello, " + restData[0] + "!</h2>");
+
     }
 }

@@ -19,13 +19,13 @@ public class RegionBuilder {
 
         for (RestData restData : restDataSet) {
 
-            Regions region = Regions.valueOf(restData.getRegionName());
+            Regions region = Regions.valueOf(restData.getRegion());
 
 
             AreaItem areaItem = new AreaItem();
             areaItem.setColor(color);
             areaItem.setName(region.regionName);
-            areaItem.setDescription("Amount: " + restData.getRegionAmount());
+            areaItem.setDescription("Amount: " + restData.getTotalAmount());
 
             Geometry geometry = new Geometry();
             geometry.setCoordinates(readFile(RegionBuilder.PATH_TO_COORDINATE_FILES + region + ".txt"));

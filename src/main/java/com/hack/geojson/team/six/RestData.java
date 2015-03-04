@@ -1,31 +1,40 @@
 package com.hack.geojson.team.six;
 
 public class RestData {
-    String regionName;
-    String regionAmount;
-    String totNumberTransactions;
+    String region;
+    String totalAmount;
+    String nbTransactions;
 
-    public String getRegionName() {
-        return regionName;
+    public String getRegion() {
+        return region;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
-    public String getRegionAmount() {
-        return regionAmount;
+    public String getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setRegionAmount(String regionAmount) {
-        this.regionAmount = regionAmount;
+    public void setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public String getTotNumberTransactions() {
-        return totNumberTransactions;
+    public String getNbTransactions() {
+        return nbTransactions;
     }
 
-    public void setTotNumberTransactions(String totNumberTransactions) {
-        this.totNumberTransactions = totNumberTransactions;
+    public void setNbTransactions(String nbTransactions) {
+        this.nbTransactions = nbTransactions;
+    }
+
+    @Override
+    public String toString() {
+        return "RestData{" +
+                "region='" + region + '\'' +
+                ", totalAmount='" + totalAmount + '\'' +
+                ", nbTransactions='" + nbTransactions + '\'' +
+                '}';
     }
 }
