@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Set;
 
-/**
- * Created by boyce on 03/03/2015.
- */
+
 public class RegionBuilder {
 
     static final String PATH_TO_COORDINATE_FILES = "C:\\Users\\boyce\\IdeaProjects\\GoogleGeoJsonBuild\\src\\com\\hack\\geojson\\team\\six\\";
@@ -15,16 +14,18 @@ public class RegionBuilder {
     String color = "green";
     String amount = "234.543";
 
-    public String buildRegionGeoData() throws IOException {
+    public String buildRegionGeoData(Set<RestData> restDataSet) throws IOException {
         AreaMap areaMap = new AreaMap();
 
-        for (Regions region : Regions.values()) {
+        for (RestData restData : restDataSet) {
+
+            Regions region = Regions.valueOf(restData.getRegionName());
 
 
             AreaItem areaItem = new AreaItem();
             areaItem.setColor(color);
             areaItem.setName(region.regionName);
-            areaItem.setDescription("Amount: " + amount);
+            areaItem.setDescription("Amount: " + restData.getRegionAmount());
 
             Geometry geometry = new Geometry();
             geometry.setCoordinates(readFile(RegionBuilder.PATH_TO_COORDINATE_FILES + region + ".txt"));

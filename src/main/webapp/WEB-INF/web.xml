@@ -11,14 +11,14 @@
         based on the recommendations of the Application Developer's Guide.
     </description>
 
-    <!--<servlet>-->
-        <!--<servlet-name>HelloServlet</servlet-name>-->
-        <!--<servlet-class>examples.Hello</servlet-class>-->
-    <!--</servlet>-->
+    <servlet>
+        <servlet-name>ScriptServlet</servlet-name>
+        <servlet-class>com.hack.geojson.team.six.servlet.ScriptServlet</servlet-class>
+    </servlet>
 
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>HelloServlet</servlet-name>-->
-        <!--<url-pattern>/hello</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>ScriptServlet</servlet-name>
+        <url-pattern>/script</url-pattern>
+    </servlet-mapping>
 
 </web-app>
