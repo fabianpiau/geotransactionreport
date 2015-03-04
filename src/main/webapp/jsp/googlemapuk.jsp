@@ -7,7 +7,20 @@
     <link rel="stylesheet" type="text/css" href="../css/mapstyles.css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
-    <script src="../script"></script>
+
+    <%
+        String fromdate = request.getParameter("fromdate");
+        String todate = request.getParameter("todate");
+        if(fromdate == null || todate == null){
+
+            out.print("<script src='../script'></script>");
+
+        }else{
+
+            out.print("<script src='../script?fromdate" + fromdate +"&todate="+todate+"'></script>");
+
+        }
+    %>
 
     <script>
 
@@ -54,9 +67,9 @@
     <div class="left" id="data-container">
         <form action="googlemapuk.jsp" method="post">
             Enter a from date:
-            <input type="date" value="2015-02-25" name="from_date"><br>
+            <input type="date" value="2015-02-25" name="fromdate"><br>
             Enter a to date:
-            <input type="date" value="2015-03-04" name="to_date"><br>
+            <input type="date" value="2015-03-04" name="todate"><br>
             <button type="submit">Submit</button>
         </form>
 

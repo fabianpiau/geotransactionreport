@@ -34,8 +34,8 @@ public class ScriptServlet extends HttpServlet {
     private RestData[] getExternalData(HttpServletRequest req, PrintWriter out) throws IOException {
         Gson gson = new Gson();
 
-        String fromDate = req.getParameter("from_date");
-        String toDate = req.getParameter("to_date");
+        String fromDate = req.getParameter("fromdate");
+        String toDate = req.getParameter("todate");
 
         if (fromDate == null) {
             fromDate = "2014-02-01";
