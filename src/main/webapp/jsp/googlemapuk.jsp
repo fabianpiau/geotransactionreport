@@ -31,7 +31,7 @@
               map.data.setStyle(function(feature) {
                 var color = feature.getProperty('fillColor');
                 return {
-                  fillColor: color,
+                  fillColor: color, strokeWeight: 0
                 };
             });
 
@@ -52,24 +52,13 @@
 
 <div id="wrapper">
     <div class="left" id="data-container">
-        <table border="1">
-            <tr>
-                <td>Header one</td>
-                <td>Header two</td>
-            </tr>
-            <tr>
-                <td>Header one</td>
-                <td>Header two</td>
-            </tr>
-            <tr>
-                <td>Header one</td>
-                <td>Header two</td>
-            </tr>
-            <tr>
-                <td>Header one</td>
-                <td>Header two</td>
-            </tr>
-        </table>
+        <form action="googlemapuk.jsp" method="get">
+            Enter a from date:
+            <input type="date" value="2015-02-25" name="from_date"><br>
+            Enter a to date:
+            <input type="date" value="2015-03-04" name="to_date"><br>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 
     <!--here goes the map-->
