@@ -11,9 +11,6 @@ public class RegionBuilder {
 
     static final String PATH_TO_COORDINATE_FILES = "C:\\Users\\Fabian\\workspace-hackathon\\geotransactionreport\\src\\main\\resources\\";
 
-    String color = "green";
-    String amount = "234.543";
-
     public String buildRegionGeoData(Set<RestData> restDataSet) throws IOException {
         AreaMap areaMap = new AreaMap();
 
@@ -26,7 +23,7 @@ public class RegionBuilder {
             }
 
             AreaItem areaItem = new AreaItem();
-            areaItem.setColor(color);
+            areaItem.setColor(defineColor(restData.getNbTransactions()));
             areaItem.setName(region.regionName);
             areaItem.setDescription("Amount: " + restData.getTotalAmount());
 
@@ -38,6 +35,26 @@ public class RegionBuilder {
 
         }
         return areaMap.toString();
+    }
+
+    private String defineColor(String nbTransactions) {
+        Integer nbTrs = Integer.parseInt(nbTransactions);
+        if (nbTrs < 300) {
+            return "red";
+        }
+        if (nbTrs >= 300 && nbTrs < 500 ) {
+            return "orange";
+        }
+        if (nbTrs >= 500 && nbTrs < 700 ) {
+            return "yellow";
+        }
+        if (nbTrs >= 700 && nbTrs < 950 ) {
+            return "blue";
+        }
+        if (nbTrs >= 950 ) {
+            return "green";
+        }
+        return "white";
     }
 
 

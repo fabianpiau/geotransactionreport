@@ -34,9 +34,18 @@ public class ScriptServlet extends HttpServlet {
     private RestData[] getExternalData(HttpServletRequest req, PrintWriter out) throws IOException {
         Gson gson = new Gson();
 
+        String fromDate = req.getParameter("from_date");
+        String toDate = req.getParameter("to_date");
+
+        if (fromDate == null) {
+            fromDate = "2014-02-01";
+        }
+        if (toDate == null) {
+            toDate = "2015-03-04";
+        }
         String jsonResponse;
-//            jsonResponse = NetClientGet.getJsonResponse("http://localhost:8090/api/aggregate");
-            jsonResponse = "[{\"region\":\"Wales\",\"totalAmount\":420530.28,\"nbTransactions\":138},{\"region\":\"London\",\"totalAmount\":4170204.40,\"nbTransactions\":417},{\"region\":\"North West\",\"totalAmount\":3345868.44,\"nbTransactions\":365},{\"region\":\"Scotland\",\"totalAmount\":2417655.68,\"nbTransactions\":299},{\"region\":\"South West\",\"totalAmount\":1478510.16,\"nbTransactions\":253},{\"region\":\"South East\",\"totalAmount\":573851.36,\"nbTransactions\":141},{\"region\":\"Yorkshire And The Hamber\",\"totalAmount\":490358.89,\"nbTransactions\":134},{\"region\":\"North East\",\"totalAmount\":206924.45,\"nbTransactions\":81},{\"region\":\"West Midlands\",\"totalAmount\":879381.18,\"nbTransactions\":186},{\"region\":\"Northern Ireland\",\"totalAmount\":14403.72,\"nbTransactions\":25},{\"region\":\"East Midlands\",\"totalAmount\":134498.12,\"nbTransactions\":80}]";
+        jsonResponse = NetClientGet.getJsonResponse("http://localhost:8090/api/aggregate?from=" + fromDate + "&to=" + toDate);
+//            jsonResponse = "[{\"region\":\"Wales\",\"totalAmount\":420530.28,\"nbTransactions\":138},{\"region\":\"London\",\"totalAmount\":4170204.40,\"nbTransactions\":417},{\"region\":\"North West\",\"totalAmount\":3345868.44,\"nbTransactions\":365},{\"region\":\"Scotland\",\"totalAmount\":2417655.68,\"nbTransactions\":960},{\"region\":\"South West\",\"totalAmount\":1478510.16,\"nbTransactions\":253},{\"region\":\"South East\",\"totalAmount\":573851.36,\"nbTransactions\":141},{\"region\":\"Yorkshire And The Hamber\",\"totalAmount\":490358.89,\"nbTransactions\":134},{\"region\":\"North East\",\"totalAmount\":206924.45,\"nbTransactions\":81},{\"region\":\"West Midlands\",\"totalAmount\":879381.18,\"nbTransactions\":186},{\"region\":\"Northern Ireland\",\"totalAmount\":14403.72,\"nbTransactions\":25},{\"region\":\"East Midlands\",\"totalAmount\":134498.12,\"nbTransactions\":80}]";
 
         BufferedReader br = new BufferedReader(new StringReader(jsonResponse));
 
