@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.HashSet;
 
 
@@ -22,18 +23,20 @@ public class ScriptServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
 
+        RestData[] externalData = getExternalData(req, out);
+
+        RegionBuilder regionBuilder = new RegionBuilder();
+        String scriptData = regionBuilder.buildRegionGeoData(new HashSet<RestData>(Arrays.asList(externalData)));
+
+        out.write(scriptData);
+    }
+
+    private RestData[] getExternalData(HttpServletRequest req, PrintWriter out) throws IOException {
         Gson gson = new Gson();
 
-        String username = req.getParameter("username");
         String jsonResponse;
-        if (username.contains("2")) {
-            jsonResponse = NetClientGet.getJsonResponse("http://localhost:8090/api/aggregate");
-
-        } else {
+//            jsonResponse = NetClientGet.getJsonResponse("http://localhost:8090/api/aggregate");
             jsonResponse = "[{\"region\":\"Wales\",\"totalAmount\":420530.28,\"nbTransactions\":138},{\"region\":\"London\",\"totalAmount\":4170204.40,\"nbTransactions\":417},{\"region\":\"North West\",\"totalAmount\":3345868.44,\"nbTransactions\":365},{\"region\":\"Scotland\",\"totalAmount\":2417655.68,\"nbTransactions\":299},{\"region\":\"South West\",\"totalAmount\":1478510.16,\"nbTransactions\":253},{\"region\":\"South East\",\"totalAmount\":573851.36,\"nbTransactions\":141},{\"region\":\"Yorkshire And The Hamber\",\"totalAmount\":490358.89,\"nbTransactions\":134},{\"region\":\"North East\",\"totalAmount\":206924.45,\"nbTransactions\":81},{\"region\":\"West Midlands\",\"totalAmount\":879381.18,\"nbTransactions\":186},{\"region\":\"Northern Ireland\",\"totalAmount\":14403.72,\"nbTransactions\":25},{\"region\":\"East Midlands\",\"totalAmount\":134498.12,\"nbTransactions\":80}]";
-
-        }
-
 
         BufferedReader br = new BufferedReader(new StringReader(jsonResponse));
 
@@ -42,8 +45,6 @@ public class ScriptServlet extends HttpServlet {
         RegionBuilder regionBuilder = new RegionBuilder();
         regionBuilder.buildRegionGeoData(new HashSet<RestData>());
 
-
-        out.println("<h2>Hello, " + restData[0] + "!</h2>");
-
+        return restData;
     }
 }

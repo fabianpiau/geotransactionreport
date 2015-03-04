@@ -20,5 +20,14 @@ public enum Regions {
         this.regionName = regionName;
     }
 
+    public static Regions findByRegionName(String regionName){
+        for(Regions r : values()){
+            if( r.regionName.equals(regionName)){
+                return r;
+            }
+        }
+        return null;
+    }
+
 
 }

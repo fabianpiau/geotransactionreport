@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class RegionBuilder {
 
-    static final String PATH_TO_COORDINATE_FILES = "C:\\Users\\boyce\\IdeaProjects\\GoogleGeoJsonBuild\\src\\com\\hack\\geojson\\team\\six\\";
+    static final String PATH_TO_COORDINATE_FILES = "C:\\Users\\Fabian\\workspace-hackathon\\geotransactionreport\\src\\main\\resources\\";
 
     String color = "green";
     String amount = "234.543";
@@ -19,8 +19,11 @@ public class RegionBuilder {
 
         for (RestData restData : restDataSet) {
 
-            Regions region = Regions.valueOf(restData.getRegion());
+            Regions region = Regions.findByRegionName(restData.getRegion());
 
+            if (region == null) {
+                continue;
+            }
 
             AreaItem areaItem = new AreaItem();
             areaItem.setColor(color);
